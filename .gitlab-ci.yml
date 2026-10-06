@@ -1,0 +1,131 @@
+deploy_to_development:
+  stage: deploy
+  image: node:18
+  before_script:
+    - apt-get update -y && apt-get install -y openssh-client git
+    - mkdir -p ~/.ssh
+    - echo "$DEV_EC2_SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - |
+      if [ -z "$DEV_EC2_IP" ]; then
+        echo "❌ DEV_EC2_IP is not set"
+        exit 1
+      fi
+    - ssh-keyscan -H $DEV_EC2_IP >> ~/.ssh/known_hosts
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - |
+      ssh ubuntu@$DEV_EC2_IP /bin/bash << 'EOF'
+      set -e
+      cd /var/www/website || { echo "❌ Failed to cd to /var/www/website"; exit 1; }
+      
+      # Ensure correct remote URL (SSH format)
+      git remote set-url origin git@gitlab.com:vixa-website/website.git
+      
+      # Configure Git
+      git config --global --add safe.directory /var/www/website
+      git config --global pull.rebase true
+      
+      # Update repository
+      echo "🔄 Updating repository..."
+      git fetch origin
+      git checkout develop
+      git reset --hard origin/develop
+      
+      # Install dependencies
+      echo "📦 Installing dependencies..."
+      npm ci --no-audit
+      
+      # Build application
+      echo "🏗 Building application..."
+      NODE_ENV=production npm run build
+      
+      # Clean up existing PM2 processes
+      echo "🔄 Managing PM2 processes..."
+      pm2 stop "next-app" >/dev/null 2>&1 || true
+      pm2 delete "next-app" >/dev/null 2>&1 || true
+      
+      # Start application
+      echo "🚀 Starting application..."
+      pm2 start npm --name "next-app" -- run start -- -p 3000
+      pm2 save
+      pm2 list
+      
+      echo "✅ Deployment completed successfully!"
+      EOF
+  only:
+    - develop
+
+deploy_to_production:
+  stage: deploy
+  image: node:18
+  before_script:
+    - apt-get update -y && apt-get install -y openssh-client git
+    - mkdir -p ~/.ssh
+    - echo "$PROD_EC2_SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -H $PROD_EC2_IP >> ~/.ssh/known_hosts
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - |
+      ssh ubuntu@$PROD_EC2_IP /bin/bash << 'EOF'
+      set -e
+      
+      # Install Node.js if not present
+      if ! command -v npm &> /dev/null; then
+          echo "🔧 Installing Node.js..."
+          curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          echo "✅ Node.js $(node --version) installed"
+      fi
+      
+      # Install PM2 if not present
+      if ! command -v pm2 &> /dev/null; then
+          echo "🔧 Installing PM2..."
+          sudo npm install -g pm2
+          echo "✅ PM2 installed"
+      fi
+      
+      # Navigate to project directory (create if doesn't exist)
+      if [ ! -d "website" ]; then
+          echo "📁 Creating project directory..."
+          git clone https://gitlab.com/vixa-website/website.git
+      fi
+      
+      cd website || { echo "❌ Failed to cd to website"; exit 1; }
+      
+      # Configure Git
+      git config --global --add safe.directory $(pwd)
+      git config --global pull.rebase true
+      
+      # Update repository
+      echo "🔄 Updating repository..."
+      git fetch origin
+      git checkout main
+      git reset --hard origin/main
+      
+      # Install dependencies
+      echo "📦 Installing dependencies..."
+      npm ci --no-audit
+      
+      # Build application
+      echo "🏗 Building application..."
+      NODE_ENV=production npm run build
+      
+      # Manage PM2 processes
+      echo "🔄 Managing PM2 processes..."
+      pm2 stop "next-app" >/dev/null 2>&1 || true
+      pm2 delete "next-app" >/dev/null 2>&1 || true
+      
+      # Start application
+      echo "🚀 Starting application..."
+      pm2 start npm --name "next-app" -- run start -- -p 3000
+      pm2 save
+      pm2 list
+      
+      echo "✅ Deployment completed successfully!"
+      EOF
+  only:
+    - main

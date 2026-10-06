@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('/assets/font/helvetica-neue/HelveticaNeue.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  scroll-behavior: smooth;
+}
+
+select {
+  background-color: transparent;
+  color: white;
+}
+option {
+  background-color: #5D0E71;
+  color: white;
+}

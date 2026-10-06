@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Visa",
+    "src": "/assets/images/logos/visa.svg",
+    "height": 5
+  },
+  {
+    "name": "Mastercard",
+    "src": "/assets/images/logos/mastercard.svg",
+    "height": 5
+  },
+  {
+    "name": "JCB",
+    "src": "/assets/images/logos/jcb.svg",
+    "height": 6
+  },
+  {
+    "name": "American Express",
+    "src": "/assets/images/logos/amex.svg",
+    "height": 8
+  },
+  {
+    "name": "Alipay",
+    "src": "/assets/images/logos/alipay.svg",
+    "height": 6
+  },
+  {
+    "name": "WeChat Pay",
+    "src": "/assets/images/logos/wechatpay.svg",
+    "height": 6
+  }
+]

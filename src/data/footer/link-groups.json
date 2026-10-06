@@ -1,0 +1,111 @@
+[
+  {
+    "title": "About",
+    "links": [
+      { "label": "About ViXa Platform", "href": "/about-us" },
+      { "label": "Pricing Models", "href": "/pricing" },
+      { "label": "Products", "href": "#" },
+      { "label": "Customers", "href": "#" },
+      { "label": "Partners", "href": "#" },
+      { "label": "Case Studies", "href": "#" }
+    ]
+  },
+  {
+    "title": "Promotions",
+    "links": [
+      { "label": "Free Trial", "href": "/contact-us" },
+      { "label": "Discount", "href": "#" }
+    ]
+  },
+  {
+    "title": "Explore",
+    "links": [
+      { "label": "Licence", "href": "#" },
+      { "label": "Getting Started", "href": "#" },
+      { "label": "Blog", "href": "#" },
+      { "label": "Onboarding", "href": "#" },
+      { "label": "Tutorials", "href": "#" },
+      { "label": "Training & Certification", "href": "#" }
+    ]
+  },
+  {
+    "title": "Support",
+    "links": [
+      { "label": "Sales Account Manager", "href": "#" },
+      { "label": "Submit a Ticket", "href": "/contact-us" },
+      { "label": "After-Sales Support", "href": "/contact-us" },
+      { "label": "Security Report", "href": "#" },
+      { "label": "Feedback", "href": "#" },
+      { "label": "Pricing Calculator", "href": "#" },
+      { "label": "Support Structure", "href": "/support" }
+    ]
+  },
+  {
+    "title": "Resources",
+    "links": [
+      { "label": "Documentation Centre", "href": "/documentation-centre" },
+      { "label": "Security & Compliance", "href": "/security-compliance" },
+      { "label": "Press Room", "href": "/press-room" },
+      { "label": "Site Map", "href": "/site-map" },
+      { "label": "Status", "href": "/status" }
+    ]
+  },
+  {
+    "title": "Products",
+    "links": [
+      {
+        "label": "Ost Infinity Applications",
+        "href": "/",
+        "children": [
+          {
+            "label": "Managed Threat Detection And Response",
+            "href": "/threat-detection"
+          },
+          {
+            "label": "Network Performance Monitoring & Observability",
+            "href": "/network-monitoring"
+          }
+        ]
+      }
+    ]
+  },
+  {
+  "title": "Solutions",
+    "links": [
+      {
+        "label": "Managed Security Services (MSS)",
+        "children": [
+          { "label": "Cybersecurity Operation Centre", "href": "/products/cybersecurity-operation-centre" },
+          { "label": "Incident Response", "href": "/products/incident-response" },
+          { "label": "Managed Risk", "href": "/products/managed-risk" },
+          { "label": "Vulnerability Management", "href": "/products/vulnerability-assessment" },
+          { "label": "Penetration Testing", "href": "/products/penetration-testing" },
+          { "label": "Managed Security Journey", "href": "/products/security-journey" },
+          { "label": "Threat Hunting", "href": "/products/threat-hunting" },
+          { "label": "Cyber Security Posture Management", "href":"/products/threat-hunting" }
+        ]
+      },
+      {
+        "label": "DevSecOps",
+        "href": "/products/devsecops"
+      }
+    ]
+  },
+  {
+    "title": "Recommended",
+    "links": [
+      { "label": "Topic Centre", "href": "#" },
+      { "label": "Industries", "href": "#" },
+      { "label": "Developers", "href": "#" },
+      { "label": "Tutorials", "href": "#" }
+    ]
+  },
+   {
+    "title": "Legal & Safety",
+    "links": [
+      { "label": "Privacy Policy", "href": "/privacy-policy" },
+      { "label": "Terms of Use", "href": "#" },
+      { "label": "Report Vulnerabilities", "href": "#" }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "linkedin",
+    "src": "/assets/images/icons/linkedin.png",
+    "href": "https://www.linkedin.com/company/ostinfinity/"
+  },
+  {
+    "name": "tiktok",
+    "src": "/assets/images/icons/tiktok.png",
+    "href": "#"
+  },
+  {
+    "name": "youtube",
+    "src": "/assets/images/icons/youtube.png",
+    "href": "#"
+  },
+  {
+    "name": "facebook",
+    "src": "/assets/images/icons/facebook.png",
+    "href": "#"
+  }
+]
